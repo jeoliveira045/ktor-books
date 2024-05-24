@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.*
 
 
 @Serializable
-data class Book(val id: Int, val book_name: String, val author_id: String)
+data class Book(val id: Int, val book_name: String, val author_id: Int)
 
 object Books: Table(){
     val id = integer("id").autoIncrement()

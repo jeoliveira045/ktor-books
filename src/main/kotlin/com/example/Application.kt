@@ -1,6 +1,8 @@
 package com.example
 
 import com.example.plugins.*
+import com.example.rest.configuringAuthorRouting
+import com.example.rest.configuringBookRouting
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -22,5 +24,6 @@ fun Application.module() {
     }
     DatabaseConnection.init()
 //    configureSerialization()
-    configureRouting()
+    configuringAuthorRouting()
+    configuringBookRouting()
 }
