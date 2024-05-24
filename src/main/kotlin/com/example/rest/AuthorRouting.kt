@@ -8,22 +8,32 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Application.configuringAuthorRouting() {
-    var authorService =  AuthorService()
+    var service =  AuthorService()
     var endpoint = "/author"
 
     routing {
         get(endpoint){
-            call.respond(authorService.findAll());
+            call.respond(service.findAll());
         }
 
         get("$endpoint/{id}"){
-            var author = authorService.findById(call.parameters["id"]!!.toInt())
+            var author = service.findById(call.parameters["id"]!!.toInt())
             call.respond(message = author)
         }
 
         post(endpoint){
             var author = call.receive<Author>()
-
+            service.insert(author)
         }
+
+        put("$endpoint/{id}"){
+            var author = call.receive<Author>()
+            service.update(call.parameters["id"]!!.toInt(), author)
+        }
+
+        delete("$endpoint/{id}"){
+            service.delete(call.parameters["id"]!!.toInt())
+        }
+
     }
 }
